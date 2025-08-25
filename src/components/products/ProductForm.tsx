@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ProductFormProps } from "../../types";
+import type { ProductFormProps } from "../../types";
 import { validateProduct } from "../../utils";
 import { Button, Input } from "../common";
 

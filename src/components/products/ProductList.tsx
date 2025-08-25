@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { ProductDTO } from '../../types';
-import { ProductCard } from './ProductCard';
-import { Input, Button } from '../common';
+import React, { useState } from "react";
+import type { ProductDTO } from "../../types";
+import { ProductCard } from "./ProductCard";
+import { Input, Button } from "../common";
 
 interface ProductListProps {
   products: ProductDTO[];
@@ -18,23 +18,31 @@ export const ProductList: React.FC<ProductListProps> = ({
   onDelete,
   onAddToCart,
   onCreateNew,
-  loading = false
+  loading = false,
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterActive, setFilterActive] = useState<
+    "all" | "active" | "inactive"
+  >("all");
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterActive === 'all' || 
-      (filterActive === 'active' && product.isActive) ||
-      (filterActive === 'inactive' && !product.isActive);
-    
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesFilter =
+      filterActive === "all" ||
+      (filterActive === "active" && product.isActive) ||
+      (filterActive === "inactive" && !product.isActive);
+
     return matchesSearch && matchesFilter;
   });
 
   const handleDelete = (id: string) => {
-    const product = products.find(p => p.id === id);
-    if (product && window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
+    const product = products.find((p) => p.id === id);
+    if (
+      product &&
+      window.confirm(`Are you sure you want to delete "${product.name}"?`)
+    ) {
       onDelete(id);
     }
   };
@@ -47,7 +55,10 @@ export const ProductList: React.FC<ProductListProps> = ({
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="bg-white rounded-lg shadow-md p-6 animate-pulse">
+            <div
+              key={i}
+              className="bg-white rounded-lg shadow-md p-6 animate-pulse"
+            >
               <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
               <div className="h-8 bg-gray-200 rounded w-1/2 mb-2"></div>
               <div className="h-4 bg-gray-200 rounded w-2/3 mb-4"></div>
@@ -70,9 +81,7 @@ export const ProductList: React.FC<ProductListProps> = ({
         <h2 className="text-2xl font-bold text-gray-900">
           Products ({filteredProducts.length})
         </h2>
-        <Button onClick={onCreateNew}>
-          Add New Product
-        </Button>
+        <Button onClick={onCreateNew}>Add New Product</Button>
       </div>
 
       {/* Filters */}
@@ -89,7 +98,9 @@ export const ProductList: React.FC<ProductListProps> = ({
         <div className="sm:w-48">
           <select
             value={filterActive}
-            onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
+            onChange={(e) =>
+              setFilterActive(e.target.value as "all" | "active" | "inactive")
+            }
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">All Products</option>
@@ -103,12 +114,12 @@ export const ProductList: React.FC<ProductListProps> = ({
       {filteredProducts.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-gray-500 text-lg mb-4">
-            {searchTerm || filterActive !== 'all' ? 'No products match your filters' : 'No products found'}
+            {searchTerm || filterActive !== "all"
+              ? "No products match your filters"
+              : "No products found"}
           </div>
-          {(!searchTerm && filterActive === 'all') && (
-            <Button onClick={onCreateNew}>
-              Create Your First Product
-            </Button>
+          {!searchTerm && filterActive === "all" && (
+            <Button onClick={onCreateNew}>Create Your First Product</Button>
           )}
         </div>
       ) : (

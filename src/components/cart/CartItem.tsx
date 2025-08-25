@@ -1,6 +1,6 @@
-import React from 'react';
-import { CartItem as CartItemType } from '../../types';
-import { formatCurrency } from '../../utils';
+import React from "react";
+import type { CartItem as CartItemType } from "../../types";
+import { formatCurrency } from "../../utils";
 
 interface CartItemProps {
   item: CartItemType;
@@ -8,10 +8,10 @@ interface CartItemProps {
   onRemove: (productId: string) => void;
 }
 
-export const CartItem: React.FC<CartItemProps> = ({ 
-  item, 
-  onUpdateQuantity, 
-  onRemove 
+export const CartItem: React.FC<CartItemProps> = ({
+  item,
+  onUpdateQuantity,
+  onRemove,
 }) => {
   const handleQuantityChange = (delta: number) => {
     const newQuantity = item.quantity + delta;
@@ -25,7 +25,9 @@ export const CartItem: React.FC<CartItemProps> = ({
   return (
     <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
       <div className="flex-1 min-w-0">
-        <h4 className="font-medium text-gray-900 truncate">{item.product.name}</h4>
+        <h4 className="font-medium text-gray-900 truncate">
+          {item.product.name}
+        </h4>
         <p className="text-sm text-gray-600">
           {formatCurrency(item.product.unitPrice)} each
         </p>
@@ -33,7 +35,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           <p className="text-xs text-yellow-600 mt-1">Maximum stock reached</p>
         )}
       </div>
-      
+
       <div className="flex items-center space-x-3 ml-4">
         {/* Quantity Controls */}
         <div className="flex items-center space-x-2">
@@ -45,9 +47,9 @@ export const CartItem: React.FC<CartItemProps> = ({
           >
             -
           </button>
-          
+
           <span className="w-8 text-center font-medium">{item.quantity}</span>
-          
+
           <button
             onClick={() => handleQuantityChange(1)}
             disabled={item.quantity >= item.product.unitsInStock}
@@ -57,14 +59,14 @@ export const CartItem: React.FC<CartItemProps> = ({
             +
           </button>
         </div>
-        
+
         {/* Total Price */}
         <div className="text-right min-w-0">
           <p className="font-medium text-gray-900">
             {formatCurrency(totalPrice)}
           </p>
         </div>
-        
+
         {/* Remove Button */}
         <button
           onClick={() => onRemove(item.product.id)}
