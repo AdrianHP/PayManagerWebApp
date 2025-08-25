@@ -1,5 +1,5 @@
-import { BaseDTO } from "./common.types";
-import { ProductDTO } from "./product.types";
+import type { BaseDTO } from "./common.types";
+import type { ProductDTO } from "./product.types";
 
 export interface FeeDTO {
   name: string;

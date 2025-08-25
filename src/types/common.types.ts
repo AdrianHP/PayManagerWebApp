@@ -1,9 +1,13 @@
-import { ProductDTO } from "./product.types";
+import type { ProductDTO } from "./product.types";
 
 export interface BaseDTO<T> {
   id: T;
 }
 
+export interface ApiGridResponse<T> {
+  data: T;
+  count: number;
+}
 export interface CartItem {
   product: ProductDTO;
   quantity: number;
