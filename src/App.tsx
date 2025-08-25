@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { CartProvider } from "./contexts/CartContext";
+import { Header } from "./components/layout";
+import { ProductsView, OrdersView } from "./views";
+import "./styles/globals.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App: React.FC = () => {
+  const [activeView, setActiveView] = useState<"products" | "orders">(
+    "products"
   );
-}
+
+  return (
+    <CartProvider>
+      <div className="min-h-screen bg-gray-50">
+        <Header activeView={activeView} onViewChange={setActiveView} />
+        <main className="container mx-auto px-4 py-8 page-transition">
+          {activeView === "products" ? <ProductsView /> : <OrdersView />}
+        </main>
+      </div>
+    </CartProvider>
+  );
+};
 
 export default App;

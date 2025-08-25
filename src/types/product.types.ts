@@ -1,4 +1,4 @@
-import { BaseDTO } from "./common.types";
+import type { BaseDTO } from "./common.types";
 
 export interface ProductDTO extends BaseDTO<string> {
   name: string;
